@@ -1,6 +1,21 @@
 // Gabarit commun des pages. Un seul en-tête, un seul pied : les dupliquer dans
 // chaque fichier HTML garantissait qu'ils finiraient par diverger.
 
+import { ARENSEIGNER } from './editeur.mjs'
+
+/**
+ * Deux régimes de diffusion.
+ *
+ *   restreinte — le site est en ligne mais non référencé, sans contact, comme
+ *                l'app Patrimoine. C'est une préversion qu'on partage par lien.
+ *   publique   — le site est ouvert au public et indexé. Il exige alors une
+ *                identité d'éditeur complète, et les obligations qui vont avec.
+ *
+ * On reste en restreinte par défaut : ouvrir se décide, se fermer s'oublie.
+ */
+export const DIFFUSION = process.env.DIFFUSION === 'publique' ? 'publique' : 'restreinte'
+export const PUBLIQUE = DIFFUSION === 'publique'
+
 export const MARQUE = 'Lignée'
 export const BASELINE = 'Comprendre et préparer sa succession'
 export const ANNEE = 2026
@@ -25,6 +40,30 @@ export const NAV = [
 const nav = (courante) => NAV.map(l =>
   `<a href="${l.href}"${l.href === courante ? ' aria-current="page"' : ''}>${l.texte}</a>`).join('\n          ')
 
+/**
+ * Bloc de contact. Volontairement sans formulaire : un formulaire supposerait
+ * de collecter et d'héberger des données, ce que le site promet précisément de
+ * ne pas faire. Un lien de messagerie ne collecte rien.
+ */
+const contact = () => `
+    <section class="section section--doux">
+      <div class="bloc texte" style="text-align:center;max-width:620px;margin:0 auto">
+        <p class="surtitre">En parler</p>
+        <h2>Votre situation ne ressemble à aucun tableau</h2>
+        <p class="chapo" style="margin:0 auto 26px">
+          Un régime matrimonial, un enfant d'un premier lit, une entreprise à transmettre :
+          ce sont ces détails qui déplacent les montants, et aucun simulateur ne les voit.
+          Si vous voulez en discuter, écrivez — la réponse est gratuite et sans engagement.
+        </p>
+        <a class="btn btn--plein" href="mailto:${ARENSEIGNER.courriel}?subject=Question%20sur%20ma%20succession">
+          ${ARENSEIGNER.courriel}
+        </a>
+        <p class="aide" style="margin-top:18px;font-size:13.5px;color:var(--texte-doux)">
+          Aucun formulaire, aucune inscription : votre message part de votre messagerie.
+        </p>
+      </div>
+    </section>`
+
 const pied = () => `
   <footer class="pied">
     <div class="bloc">
@@ -37,6 +76,8 @@ const pied = () => `
           </p>
         </div>
         <div>
+          ${PUBLIQUE ? `<h4>Écrire</h4>
+          <div style="margin-bottom:22px"><a href="mailto:${ARENSEIGNER.courriel}">${ARENSEIGNER.courriel}</a></div>` : ''}
           <h4>Comprendre</h4>
           ${NAV.map(l => `<div style="margin-bottom:7px"><a href="${l.href}">${l.texte}</a></div>`).join('\n          ')}
         </div>
@@ -60,7 +101,7 @@ const pied = () => `
     </div>
   </footer>`
 
-export function page({ slug, titre, description, contenu, script = false }) {
+export function page({ slug, titre, description, contenu, script = false, sansContact = false }) {
   const url = slug === 'index' ? '/' : `/${slug}.html`
   return `<!doctype html>
 <html lang="fr">
@@ -74,6 +115,7 @@ export function page({ slug, titre, description, contenu, script = false }) {
   <meta property="og:type" content="website" />
   <meta property="og:url" content="${SITE}${url}" />
   <meta property="og:locale" content="fr_FR" />
+  ${PUBLIQUE ? '' : '<meta name="robots" content="noindex, nofollow" />'}
   <link rel="canonical" href="${SITE}${url}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -90,6 +132,7 @@ export function page({ slug, titre, description, contenu, script = false }) {
   </header>
   <main>
 ${contenu}
+${sansContact || !PUBLIQUE ? '' : contact()}
   </main>
 ${pied()}
 ${script ? '  <script type="module" src="/src/main.tsx"></script>' : ''}

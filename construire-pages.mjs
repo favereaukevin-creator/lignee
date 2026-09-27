@@ -2,7 +2,7 @@
 // Lancé avant vite build, qui les prend ensuite comme points d'entrée.
 
 import { writeFileSync, readdirSync, unlinkSync } from 'node:fs'
-import { page, SITE, BASE } from './contenu/gabarit.mjs'
+import { page, SITE, BASE, PUBLIQUE, DIFFUSION } from './contenu/gabarit.mjs'
 import { pages } from './contenu/pages.mjs'
 import { pages2 } from './contenu/pages2.mjs'
 import { pages3, ARENSEIGNER } from './contenu/pages3.mjs'
@@ -29,7 +29,11 @@ const prefixe = (html) => BASE === '/'
 // un numéro ORIAS inventé serait une faute grave. On contrôle les valeurs à la
 // source plutôt que le HTML produit : c'est exact, et aucune ponctuation ne
 // peut le prendre en défaut.
-const manquants = Object.entries(ARENSEIGNER).filter(([, v]) => /^<.*>$/.test(v.trim()))
+// En diffusion restreinte, le site ne publie ni identité d'éditeur ni contact :
+// il n'y a donc rien à exiger. En diffusion publique, tout est requis.
+const manquants = PUBLIQUE
+  ? Object.entries(ARENSEIGNER).filter(([, v]) => /^<.*>$/.test(v.trim()))
+  : []
 if (manquants.length) {
   console.error('\n✗ Mentions légales incomplètes. À renseigner dans contenu/pages3.mjs :')
   for (const [cle, valeur] of manquants) console.error(`    ${cle.padEnd(12)} ${valeur}`)
@@ -47,6 +51,12 @@ writeFileSync('public/sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`
   + toutes.map(p => `  <url><loc>${base}${p.slug === 'index' ? '/' : '/' + p.slug + '.html'}</loc></url>`).join('\n')
   + `\n</urlset>\n`)
-writeFileSync('public/robots.txt', `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`)
+writeFileSync('public/robots.txt', PUBLIQUE
+  ? `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`
+  : `User-agent: *\nDisallow: /\n`)
 
-console.log(`${toutes.length} pages générées : ${toutes.map(p => p.slug).join(', ')}`)
+console.log(`${toutes.length} pages générées en diffusion ${DIFFUSION} : ${toutes.map(p => p.slug).join(', ')}`)
+if (!PUBLIQUE) {
+  console.log('  → noindex posé, bloc de contact masqué, mentions en préversion.')
+  console.log("  → DIFFUSION=publique pour ouvrir, une fois l'identité de l'éditeur renseignée.")
+}
