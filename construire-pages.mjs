@@ -2,7 +2,7 @@
 // Lancé avant vite build, qui les prend ensuite comme points d'entrée.
 
 import { writeFileSync, readdirSync, unlinkSync } from 'node:fs'
-import { page, SITE } from './contenu/gabarit.mjs'
+import { page, SITE, BASE } from './contenu/gabarit.mjs'
 import { pages } from './contenu/pages.mjs'
 import { pages2 } from './contenu/pages2.mjs'
 
@@ -13,8 +13,19 @@ for (const f of readdirSync('.')) {
   if (f.endsWith('.html')) unlinkSync(f)
 }
 
+/**
+ * Préfixe les liens internes par la base de déploiement.
+ * On ne touche qu'aux liens de pages : Vite réécrit lui-même /src/... et les
+ * ressources, et y toucher ici les casserait.
+ */
+const prefixe = (html) => BASE === '/'
+  ? html
+  : html
+    .replace(/href="\/"/g, `href="${BASE}"`)
+    .replace(/href="\/([a-z0-9-]+\.html)"/g, `href="${BASE}$1"`)
+
 for (const p of toutes) {
-  writeFileSync(`${p.slug}.html`, page(p))
+  writeFileSync(`${p.slug}.html`, prefixe(page(p)))
 }
 
 // Plan du site et robots.txt, pour le référencement.

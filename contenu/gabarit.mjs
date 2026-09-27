@@ -9,6 +9,11 @@ export const ANNEE = 2026
 // doivent être absolus. Renseignée par SITE_URL au moment de la construction.
 export const SITE = (process.env.SITE_URL || 'https://lignee.fr').replace(/\/$/, '')
 
+// Préfixe des liens internes. Sur GitHub Pages, le site vit sous /lignee/ et
+// des liens en /simulateur.html tomberaient à côté. Vide (« / ») dès qu'un nom
+// de domaine propre est branché.
+export const BASE = (process.env.BASE_URL || '/').replace(/\/*$/, '/')
+
 export const NAV = [
   { href: '/simulateur.html', texte: 'Simulateur' },
   { href: '/abattements.html', texte: 'Abattements et barèmes' },

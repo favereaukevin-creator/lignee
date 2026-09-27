@@ -10,6 +10,7 @@ const entrees = Object.fromEntries(
     .map(f => [f.replace(/\.html$/, ''), resolve(__dirname, f)]))
 
 export default defineConfig({
+  base: process.env.BASE_URL || '/',
   plugins: [react()],
   build: { rollupOptions: { input: entrees } },
 })
