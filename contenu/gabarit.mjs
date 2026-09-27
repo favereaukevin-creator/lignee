@@ -48,6 +48,7 @@ const pied = () => `
         </div>
       </div>
       <div class="mentions">
+        <p style="margin:0 0 8px"><a href="/mentions-legales.html">Mentions légales</a></p>
         <p style="margin:0 0 8px">
           <strong>Ce site n'est ni un conseil juridique, ni un conseil fiscal, ni une consultation notariale.</strong>
           Les estimations sont indicatives : elles ignorent le régime matrimonial, les

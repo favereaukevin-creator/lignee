@@ -5,8 +5,9 @@ import { writeFileSync, readdirSync, unlinkSync } from 'node:fs'
 import { page, SITE, BASE } from './contenu/gabarit.mjs'
 import { pages } from './contenu/pages.mjs'
 import { pages2 } from './contenu/pages2.mjs'
+import { pages3, ARENSEIGNER } from './contenu/pages3.mjs'
 
-const toutes = [...pages, ...pages2]
+const toutes = [...pages, ...pages2, ...pages3]
 
 // On repart propre : une page supprimée du contenu ne doit pas survivre en ligne.
 for (const f of readdirSync('.')) {
@@ -23,6 +24,18 @@ const prefixe = (html) => BASE === '/'
   : html
     .replace(/href="\/"/g, `href="${BASE}"`)
     .replace(/href="\/([a-z0-9-]+\.html)"/g, `href="${BASE}$1"`)
+
+// Garde-fou : une mention légale à trou est pire que pas de page du tout, et
+// un numéro ORIAS inventé serait une faute grave. On contrôle les valeurs à la
+// source plutôt que le HTML produit : c'est exact, et aucune ponctuation ne
+// peut le prendre en défaut.
+const manquants = Object.entries(ARENSEIGNER).filter(([, v]) => /^<.*>$/.test(v.trim()))
+if (manquants.length) {
+  console.error('\n✗ Mentions légales incomplètes. À renseigner dans contenu/pages3.mjs :')
+  for (const [cle, valeur] of manquants) console.error(`    ${cle.padEnd(12)} ${valeur}`)
+  console.error('\n  La construction est bloquée tant qu\'un champ reste vide.\n')
+  process.exit(1)
+}
 
 for (const p of toutes) {
   writeFileSync(`${p.slug}.html`, prefixe(page(p)))
