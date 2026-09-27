@@ -7,6 +7,11 @@ import {
   calcule, appliqueBareme, BAREME_LIGNE_DIRECTE, BAREME_FRERES_SOEURS,
   type Actif,
 } from './succession'
+import {
+  SEUIL_ECRIT, SEUIL_DECLARATION_PRET, DROIT_ENREGISTREMENT,
+  DON_ENFANT, DON_EPOUX_PACS, DON_PETIT_ENFANT, DON_FRERE_SOEUR,
+  DON_NEVEU_NIECE, DON_ARRIERE_PETIT_ENFANT, DON_FAMILIAL_NUMERAIRE,
+} from './pretFamilial'
 
 /**
  * Les pages du site citent des montants en toutes lettres. Rien n'empêche le
@@ -34,6 +39,16 @@ describe('le contenu rédigé cite les mêmes chiffres que le moteur', () => {
     ['abattement assurance-vie avant 70 ans', AV_ABATTEMENT_AVANT_70],
     ['abattement assurance-vie après 70 ans', AV_ABATTEMENT_APRES_70],
     ['seuil du taux majoré', AV_SEUIL_TAUX_MAJORE],
+    ['seuil de l\'écrit', SEUIL_ECRIT],
+    ['seuil de déclaration du prêt', SEUIL_DECLARATION_PRET],
+    ['droit d\'enregistrement', DROIT_ENREGISTREMENT],
+    ['donation à un enfant', DON_ENFANT],
+    ['donation entre époux ou pacsés', DON_EPOUX_PACS],
+    ['donation à un petit-enfant', DON_PETIT_ENFANT],
+    ['donation à un frère ou une sœur', DON_FRERE_SOEUR],
+    ['donation à un neveu ou une nièce', DON_NEVEU_NIECE],
+    ['donation à un arrière-petit-enfant', DON_ARRIERE_PETIT_ENFANT],
+    ['don familial de sommes d\'argent', DON_FAMILIAL_NUMERAIRE],
   ])('%s — %i € apparaît dans les pages', (_, montant) => {
     expect(citeDansLeContenu(montant)).toBe(true)
   })

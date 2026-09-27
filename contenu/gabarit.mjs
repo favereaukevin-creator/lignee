@@ -34,6 +34,7 @@ export const NAV = [
   { href: '/abattements.html', texte: 'Abattements et barèmes' },
   { href: '/assurance-vie.html', texte: 'Assurance-vie' },
   { href: '/donation.html', texte: 'Donner de son vivant' },
+  { href: '/pret-familial.html', texte: 'Prêt familial' },
   { href: '/conjoint.html', texte: 'Protéger son conjoint' },
 ]
 

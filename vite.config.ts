@@ -7,7 +7,7 @@ import { resolve } from 'node:path'
 // donne de vraies URL indexables plutôt qu'un routage en JavaScript.
 const entrees = Object.fromEntries(
   readdirSync('.').filter(f => f.endsWith('.html'))
-    .map(f => [f.replace(/\.html$/, ''), resolve(__dirname, f)]))
+    .map(f => [f.replace(/\.html$/, ''), resolve(import.meta.dirname, f)]))
 
 export default defineConfig({
   base: process.env.BASE_URL || '/',
