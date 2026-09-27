@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "lignee", "runtimeExecutable": "npx", "runtimeArgs": ["vite", "preview", "--port", "4180", "--strictPort"], "port": 4180 }
+  ]
+}

@@ -1,0 +1,63 @@
+.sim { display: grid; gap: 26px; }
+@media (min-width: 1000px) { .sim { grid-template-columns: 1.05fr .95fr; align-items: start; } }
+
+.sim-panneau { background: #fff; border: 1px solid var(--bord); border-radius: var(--r); padding: 26px; box-shadow: var(--ombre); }
+.sim-resultat { position: sticky; top: calc(var(--entete) + 22px); }
+
+.sim h3 { font-family: var(--corps); font-size: 12px; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--texte-doux); font-weight: 500; margin: 0 0 16px; }
+
+.champ { margin-bottom: 15px; }
+.champ label { display: block; font-size: 14px; color: var(--texte); margin-bottom: 5px; }
+.champ .aide { font-size: 12.5px; color: var(--texte-doux); margin-top: 4px; line-height: 1.45; }
+.champ-ligne { display: flex; align-items: center; gap: 8px; }
+input[type="text"], input[type="number"], select {
+  width: 100%; font-family: var(--corps); font-size: 15px; color: var(--texte);
+  padding: 10px 12px; border: 1px solid var(--bord); border-radius: var(--r-sm);
+  background: #fff; transition: border-color .15s ease;
+}
+input:focus, select:focus { outline: none; border-color: var(--or); box-shadow: 0 0 0 3px rgba(168,131,76,.13); }
+input.num { text-align: right; font-variant-numeric: tabular-nums; }
+.unite { color: var(--texte-doux); font-size: 14px; white-space: nowrap; }
+
+.case { display: flex; gap: 9px; align-items: flex-start; font-size: 14px; cursor: pointer; }
+.case input { width: auto; margin-top: 3px; accent-color: var(--or); }
+
+.heritier { border: 1px solid var(--bord); border-radius: var(--r-sm); padding: 16px; margin-bottom: 13px; background: var(--fond-doux); }
+.heritier-tete { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
+.heritier-tete input { flex: 1; }
+.heritier-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 12px; }
+.supprimer { background: none; border: 0; color: var(--texte-doux); cursor: pointer; font-size: 19px; line-height: 1; padding: 4px 8px; border-radius: 6px; }
+.supprimer:hover { color: var(--rouge); background: var(--rouge-50); }
+
+.avance { margin-top: 12px; }
+.avance summary { font-size: 13px; color: var(--texte-doux); cursor: pointer; user-select: none; }
+.avance summary:hover { color: var(--or); }
+.avance > div { padding-top: 12px; }
+
+.total { text-align: center; padding: 22px 0 6px; }
+.total .chiffre { font-size: 3rem; }
+.total-note { font-size: 14px; color: var(--texte-doux); }
+
+.barre { display: flex; height: 9px; border-radius: 99px; overflow: hidden; margin: 18px 0 8px; background: var(--encre-100); }
+.barre span { display: block; }
+.legende { display: flex; gap: 18px; font-size: 13px; color: var(--texte-doux); flex-wrap: wrap; }
+.legende i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; margin-right: 6px; vertical-align: -1px; }
+
+.lignes { margin-top: 22px; }
+.ligne-h { border-top: 1px solid var(--bord); padding: 15px 0; }
+.ligne-h-tete { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.ligne-h-nom { font-weight: 500; }
+.ligne-h-lien { font-size: 13px; color: var(--texte-doux); }
+.ligne-h-droits { font-family: var(--titre); font-size: 1.32rem; color: var(--rouge); white-space: nowrap; }
+.ligne-h-droits.nul { color: var(--vert); }
+.ligne-h-detail { font-size: 13px; color: var(--texte-doux); margin-top: 6px; }
+.ligne-h-notes { font-size: 12.5px; color: var(--texte-doux); margin-top: 7px; padding-left: 14px; }
+.ligne-h-notes li { margin-bottom: 2px; }
+
+.etiquette { display: inline-block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 99px; background: var(--vert-50); color: var(--vert); font-weight: 500; }
+
+/* L'aide d'une case à cocher est imbriquée dans le libellé : sans passage en
+   bloc, elle se colle au texte de la case et les deux phrases se confondent. */
+.case .aide { display: block; margin-top: 4px; }
