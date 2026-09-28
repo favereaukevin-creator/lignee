@@ -13,28 +13,41 @@ const editeur = () => `
       <div class="bloc texte" style="margin-top:44px">
         <h2>Éditeur du site</h2>
         <p>
-          ${ARENSEIGNER.nom}<br />
+          ${ARENSEIGNER.nom}, entrepreneur individuel (EI)<br />
           ${ARENSEIGNER.statut}<br />
           ${ARENSEIGNER.adresse}<br />
-          ${ARENSEIGNER.courriel}
+          Téléphone : ${ARENSEIGNER.telephone}<br />
+          Courriel : <a href="mailto:${ARENSEIGNER.courriel}">${ARENSEIGNER.courriel}</a><br />
+          ${ARENSEIGNER.tva}
         </p>
         <p>Directeur de la publication : ${ARENSEIGNER.nom}.</p>
       </div>
 
       <div class="bloc texte" style="margin-top:44px">
         <h2>Statuts réglementaires</h2>
-        <p>L'éditeur exerce une activité d'intermédiation en assurance, réglementée à ce titre :</p>
+        <p>
+          L'éditeur est immatriculé au registre unique des intermédiaires en assurance,
+          banque et finance sous le numéro <strong>ORIAS ${ARENSEIGNER.orias}</strong>,
+          consultable sur <a href="https://www.orias.fr" rel="noopener">orias.fr</a>,
+          en qualité de :
+        </p>
         <ul>
           <li>
-            ${ARENSEIGNER.categorie}, enregistré au registre unique des intermédiaires
-            sous le numéro ORIAS ${ARENSEIGNER.orias}.
+            Mandataire d'intermédiaire d'assurance (MIA), depuis le 25 septembre 2026 —
+            adhérent de ${ARENSEIGNER.associationMia} ;
           </li>
-          <li>Adhérent de ${ARENSEIGNER.association}, association professionnelle agréée.</li>
+          <li>
+            Mandataire d'intermédiaire en opérations de banque et en services de paiement
+            (MIOBSP), depuis le 17 juillet 2026 — ${ARENSEIGNER.associationIobsp}.
+          </li>
         </ul>
         <p>
-          Le registre est consultable sur
-          <a href="https://www.orias.fr" rel="noopener">orias.fr</a>. L'activité
-          d'intermédiation en assurance est placée sous le contrôle de
+          Ces activités d'intermédiation sont exercées à titre accessoire, sans
+          encaissement de fonds : l'éditeur n'est pas autorisé à recevoir de sommes
+          destinées à des produits d'assurance ou bancaires, et n'en reçoit aucune.
+        </p>
+        <p>
+          Elles sont placées sous le contrôle de
           l'<a href="https://acpr.banque-france.fr" rel="noopener">${ARENSEIGNER.autorite}</a>.
         </p>
         <div class="note">
@@ -51,9 +64,9 @@ const editeur = () => `
           Conformément à l'article L616-1 du Code de la consommation, tout consommateur
           a le droit de recourir gratuitement à un médiateur en vue de la résolution
           amiable d'un litige, après avoir tenté de le résoudre directement auprès de
-          l'éditeur.
+          l'éditeur par écrit.
         </p>
-        <p>${ARENSEIGNER.mediateur}</p>
+        <p>Pour l'activité d'intermédiation en assurance : ${ARENSEIGNER.mediateur}.</p>
       </div>`
 
 const preversion = () => `
@@ -106,7 +119,8 @@ ${PUBLIQUE ? editeur() : preversion()}
         <p>
           GitHub, Inc.<br />
           88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis<br />
-          <a href="https://github.com" rel="noopener">github.com</a>
+          Contact : <a href="https://support.github.com" rel="noopener">support.github.com</a>
+          — l'hébergeur ne publie pas de numéro de téléphone.
         </p>
         <p>
           Le site est un ensemble de fichiers statiques servis par GitHub Pages. Aucune
