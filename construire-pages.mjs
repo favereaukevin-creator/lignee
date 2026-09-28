@@ -7,8 +7,9 @@ import { pages } from './contenu/pages.mjs'
 import { pages2 } from './contenu/pages2.mjs'
 import { pages3, ARENSEIGNER } from './contenu/pages3.mjs'
 import { pages4 } from './contenu/pages4.mjs'
+import { pages5 } from './contenu/pages5.mjs'
 
-const toutes = [...pages, ...pages2, ...pages4, ...pages3]
+const toutes = [...pages, ...pages2, ...pages5, ...pages4, ...pages3]
 
 // On repart propre : une page supprimée du contenu ne doit pas survivre en ligne.
 for (const f of readdirSync('.')) {

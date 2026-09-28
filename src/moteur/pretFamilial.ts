@@ -38,3 +38,28 @@ export const DON_ARRIERE_PETIT_ENFANT = 5_310
  */
 export const DON_FAMILIAL_NUMERAIRE = 31_865
 export const DON_FAMILIAL_AGE_MAX = 80
+
+// ---------- Démembrement ----------
+
+/**
+ * Usufruit constitué pour une durée fixe — CGI art. 669, II : 23 % de la
+ * pleine propriété par période de dix ans entamée, sans égard à l'âge, et
+ * sans pouvoir excéder la valeur de l'usufruit viager.
+ */
+export const USUFRUIT_DUREE_FIXE_PAR_DECENNIE = 0.23
+/** Durée maximale pour une personne morale, soit 69 % de la pleine propriété. */
+export const USUFRUIT_DUREE_MAX_MORALE = 30
+
+/**
+ * Délai qui écarte la présomption de propriété — CGI art. 751. Une donation
+ * régulière de la nue-propriété consentie plus de trois mois avant le décès
+ * fait échapper le bien à la présomption.
+ */
+export const DELAI_PRESOMPTION_751_MOIS = 3
+
+/**
+ * Entrée en vigueur de l'article 774 bis du CGI, issu de l'article 26 de la
+ * loi de finances pour 2024 : les dettes de restitution portant sur une somme
+ * d'argent dont le défunt s'était réservé l'usufruit cessent d'être déductibles.
+ */
+export const DATE_774_BIS = '29 décembre 2023'

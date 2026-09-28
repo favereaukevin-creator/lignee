@@ -11,7 +11,10 @@ import {
   SEUIL_ECRIT, SEUIL_DECLARATION_PRET, DROIT_ENREGISTREMENT,
   DON_ENFANT, DON_EPOUX_PACS, DON_PETIT_ENFANT, DON_FRERE_SOEUR,
   DON_NEVEU_NIECE, DON_ARRIERE_PETIT_ENFANT, DON_FAMILIAL_NUMERAIRE,
+  USUFRUIT_DUREE_FIXE_PAR_DECENNIE, USUFRUIT_DUREE_MAX_MORALE,
+  DELAI_PRESOMPTION_751_MOIS, DATE_774_BIS,
 } from './pretFamilial'
+import { BAREME_USUFRUIT } from './succession'
 
 /**
  * Les pages du site citent des montants en toutes lettres. Rien n'empêche le
@@ -61,6 +64,49 @@ describe('le contenu rédigé cite les mêmes chiffres que le moteur', () => {
 
   it('cite la borne du barème entre frères et sœurs', () => {
     expect(citeDansLeContenu(BAREME_FRERES_SOEURS[0].plafond)).toBe(true)
+  })
+})
+
+describe('la page démembrement cite des règles exactes', () => {
+  it('donne le bon pourcentage pour l\'usufruit à durée fixe', () => {
+    expect(USUFRUIT_DUREE_FIXE_PAR_DECENNIE).toBe(0.23)
+    expect(contenu).toContain('23 %')
+    // Trente ans au maximum pour une personne morale, soit 69 %.
+    expect(USUFRUIT_DUREE_MAX_MORALE / 10 * USUFRUIT_DUREE_FIXE_PAR_DECENNIE)
+      .toBeCloseTo(0.69, 10)
+    expect(contenu).toContain('69 %')
+    expect(contenu).toContain('trente ans')
+  })
+
+  it('cite le délai de trois mois de l\'article 751', () => {
+    expect(DELAI_PRESOMPTION_751_MOIS).toBe(3)
+    expect(contenu).toContain('trois mois')
+  })
+
+  it('cite la date d\'entrée en vigueur de l\'article 774 bis', () => {
+    expect(contenu).toContain(DATE_774_BIS)
+  })
+
+  it('l\'exemple du démembrement à 62 ans est juste', () => {
+    // 62 ans → usufruit 40 %, nue-propriété 60 %.
+    const usufruit = BAREME_USUFRUIT.find(t => 62 <= t.ageMax)!.usufruit
+    expect(usufruit).toBe(0.40)
+    expect(400_000 * (1 - usufruit)).toBe(240_000)
+    expect(contenu).toContain('240 000')
+    expect(240_000 / 2).toBe(120_000)
+    expect(contenu).toContain('120 000')
+    // L'usufruit conservé, jamais taxé.
+    expect(400_000 * usufruit).toBe(160_000)
+    expect(contenu).toContain('160 000')
+  })
+
+  it('l\'écart de dix points entre 69 et 71 ans est exact', () => {
+    const a69 = BAREME_USUFRUIT.find(t => 69 <= t.ageMax)!.usufruit
+    const a71 = BAREME_USUFRUIT.find(t => 71 <= t.ageMax)!.usufruit
+    expect(1 - a69).toBe(0.60)
+    expect(1 - a71).toBe(0.70)
+    expect(400_000 * ((1 - a71) - (1 - a69))).toBeCloseTo(40_000, 6)
+    expect(contenu).toContain('40 000')
   })
 })
 
