@@ -23,23 +23,19 @@ const editeur = () => `
 
       <div class="bloc texte" style="margin-top:44px">
         <h2>Statuts réglementaires</h2>
-        <p>
-          L'éditeur exerce une activité de conseil en gestion de patrimoine, réglementée
-          à ce titre :
-        </p>
+        <p>L'éditeur exerce une activité d'intermédiation en assurance, réglementée à ce titre :</p>
         <ul>
           <li>
-            Conseiller en Investissements Financiers (CIF), enregistré à l'ORIAS sous le
-            numéro ${ARENSEIGNER.orias}, adhérent de ${ARENSEIGNER.association}, association
-            agréée par l'Autorité des marchés financiers.
+            ${ARENSEIGNER.categorie}, enregistré au registre unique des intermédiaires
+            sous le numéro ORIAS ${ARENSEIGNER.orias}.
           </li>
+          <li>Adhérent de ${ARENSEIGNER.association}, association professionnelle agréée.</li>
         </ul>
         <p>
-          Le registre des intermédiaires est consultable sur
-          <a href="https://www.orias.fr" rel="noopener">orias.fr</a>. L'activité de conseil
-          en investissements financiers est placée sous le contrôle de
-          l'<a href="https://www.amf-france.org" rel="noopener">Autorité des marchés
-          financiers</a>, 17 place de la Bourse, 75082 Paris Cedex 02.
+          Le registre est consultable sur
+          <a href="https://www.orias.fr" rel="noopener">orias.fr</a>. L'activité
+          d'intermédiation en assurance est placée sous le contrôle de
+          l'<a href="https://acpr.banque-france.fr" rel="noopener">${ARENSEIGNER.autorite}</a>.
         </p>
         <div class="note">
           <strong>L'information publiée sur ce site est générale.</strong> Ni les guides

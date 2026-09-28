@@ -15,6 +15,10 @@ import {
   DELAI_PRESOMPTION_751_MOIS, DATE_774_BIS,
 } from './pretFamilial'
 import { BAREME_USUFRUIT } from './succession'
+import {
+  PER_ABATTEMENT_AVANT_70, PER_ABATTEMENT_APRES_70,
+  PER_PLAFOND_MIN_2026, PER_PLAFOND_MAX_2026, PER_PS_SORTIE,
+} from './per'
 
 /**
  * Les pages du site citent des montants en toutes lettres. Rien n'empêche le
@@ -156,5 +160,47 @@ describe('les exemples chiffrés des pages sont exacts', () => {
     const r = calcule(nu(400_000), [1, 2, 3, 4].map(i =>
       ({ id: `e${i}`, nom: `Enfant ${i}`, lien: 'enfant' as const, partPct: 25 })))
     expect(r.totalDu).toBe(0)
+  })
+})
+
+describe('la page PER cite des chiffres exacts', () => {
+  const abattementEnfant = ABATTEMENT_LIGNE_DIRECTE
+
+  it('décès avant 70 ans : 200 000 € donnent 9 500 € de prélèvement', () => {
+    const base = 200_000 - PER_ABATTEMENT_AVANT_70
+    expect(base).toBe(47_500)
+    expect(base * 0.20).toBe(9_500)
+    expect(contenu).toContain('47 500')
+    expect(contenu).toContain('9 500')
+  })
+
+  it('décès après 70 ans : la base porte sur TOUT le capital, pas sur les primes', () => {
+    const base = 200_000 - PER_ABATTEMENT_APRES_70 - abattementEnfant
+    expect(base).toBe(69_500)
+    expect(contenu).toContain('69 500')
+  })
+
+  it('les droits après 70 ans suivent le barème progressif, pas un taux plat', () => {
+    const base = 200_000 - PER_ABATTEMENT_APRES_70 - abattementEnfant
+    const droits = appliqueBareme(base, BAREME_LIGNE_DIRECTE)
+    expect(Math.round(droits)).toBe(12_094)
+    expect(contenu).toContain('12 094')
+    // Le piège : 20 % à plat donnerait 13 900 €, et ce chiffre ne doit pas
+    // réapparaître dans les pages.
+    expect(Math.round(base * 0.20)).toBe(13_900)
+    expect(contenu).not.toContain('13 900')
+  })
+
+  it('cite les plafonds de déduction 2026 et le taux de prélèvements sociaux', () => {
+    expect(citeDansLeContenu(PER_PLAFOND_MIN_2026)).toBe(true)
+    expect(citeDansLeContenu(PER_PLAFOND_MAX_2026)).toBe(true)
+    expect(contenu).toContain((PER_PS_SORTIE * 100).toFixed(1).replace('.', ',') + ' %')
+  })
+
+  it('l\'exemple de l\'assurance-vie après 70 ans reste à zéro', () => {
+    // 120 000 € de primes − 30 500 € d'abattement global − 100 000 € personnel.
+    const base = Math.max(0, 120_000 - AV_ABATTEMENT_APRES_70 - abattementEnfant)
+    expect(base).toBe(0)
+    expect(contenu).toContain('120 000')
   })
 })
