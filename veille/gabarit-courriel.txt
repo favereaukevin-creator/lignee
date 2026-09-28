@@ -1,0 +1,62 @@
+# Gabarit HTML du courriel de veille Lignée
+
+## Thèmes (numéro → emoji, nom affiché, couleurs de la pastille)
+1. 🌳 Successions & donations — fond #e8f4f0, texte #0f6e56
+2. 🛡️ Assurance-vie — fond #e2ebf1, texte #14344a
+3. 🎯 PER — fond #efeafa, texte #5b3fa0
+4. 🏛️ IFI — fond #faf6ef, texte #8a6a38
+5. 📊 Prélèvements sociaux & IR — fond #fdf0e6, texte #a65a1c
+6. 🏠 Immobilier locatif — fond #eaf3fb, texte #1d5f99
+7. 🧾 Micro-entreprise & TVA — fond #f1f3f5, texte #4b5563
+8. 🤝 Intermédiation — fond #fbeef0, texte #a8344a
+9. 🏢 Sociétés & dirigeants — fond #e6f2f3, texte #1f6b73
+
+## Priorités
+- À traiter — fond #fbeef0, texte #a8344a
+- À noter — fond #faf6ef, texte #8a6a38
+- Pour info — fond #f2f6f9, texte #6b7a86
+
+## Blocs (chacun sur une ligne ; les assembler bout à bout)
+
+### OUVERTURE (toujours)
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Veille Lignée</title></head><body style="margin:0;padding:0;background:#eef2f5;"><div style="display:none;max-height:0;overflow:hidden;opacity:0;">{{APERCU_UNE_PHRASE}}</div><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#eef2f5" style="background:#eef2f5;"><tr><td align="center" style="padding:24px 12px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;background:#ffffff;border-radius:16px;overflow:hidden;">
+
+### ENTETE (toujours)
+<tr><td bgcolor="#14344a" style="background:#14344a;padding:26px 26px 24px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="font-family:Georgia,'Times New Roman',serif;font-size:26px;color:#ffffff;">Lign<span style="color:#c9a46a;">ée</span></td><td align="right" style="font-family:Helvetica,Arial,sans-serif;font-size:10px;line-height:1.5;letter-spacing:2px;color:#c9a46a;font-weight:bold;">VEILLE JURIDIQUE<br>&amp; FISCALE</td></tr></table><div style="height:22px;line-height:22px;">&nbsp;</div><span style="display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:bold;letter-spacing:1px;color:#14344a;background:#c9a46a;border-radius:20px;padding:4px 11px;">{{BADGE}}</span><div style="font-family:Georgia,'Times New Roman',serif;font-size:25px;line-height:1.25;color:#ffffff;margin-top:10px;">{{TITRE}}</div><div style="font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#b8c7d3;margin-top:6px;">{{SOUS_TITRE}}</div></td></tr><tr><td height="4" bgcolor="#a8834c" style="background:#a8834c;font-size:0;line-height:0;">&nbsp;</td></tr>
+
+### INTRO (toujours)
+<tr><td style="padding:28px 26px 6px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#23303a;"><p style="margin:0 0 10px;">{{SALUTATION}}</p><p style="margin:0;">{{INTRO}}</p></td></tr>
+
+### EN_BREF (seulement si au moins 2 actualités ; une LIGNE_BREF par actualité à la place de {{LIGNES}})
+<tr><td style="padding:18px 26px 4px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f7f9fb;border:1px solid #e3e9ee;border-radius:12px;"><tr><td style="padding:16px 20px 6px;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#a8834c;">EN BREF</td></tr>{{LIGNES}}<tr><td style="height:10px;line-height:10px;font-size:0;">&nbsp;</td></tr></table></td></tr>
+
+### LIGNE_BREF
+<tr><td style="padding:6px 20px;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.45;color:#23303a;"><span style="color:{{PRIO_TEXTE}};font-size:16px;">●</span>&nbsp; {{EMOJI}}&nbsp; {{TITRE_COURT}}</td></tr>
+
+### ACTUALITE (une par actualité retenue, dans l’ordre : À traiter, puis À noter, puis Pour info)
+<tr><td style="padding:16px 26px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #e3e9ee;border-radius:14px;"><tr><td style="padding:20px 22px 22px;"><div style="line-height:1;"><span style="display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;color:{{THEME_TEXTE}};background:{{THEME_FOND}};border-radius:20px;padding:4px 11px;white-space:nowrap;margin:0 4px 6px 0;">{{EMOJI}}&nbsp; {{THEME}}</span><span style="display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;color:{{PRIO_TEXTE}};background:{{PRIO_FOND}};border-radius:20px;padding:4px 11px;white-space:nowrap;margin:0 4px 6px 0;">{{PRIORITE}}</span></div><div style="font-family:Georgia,'Times New Roman',serif;font-size:20px;line-height:1.3;color:#14344a;font-weight:bold;margin-top:8px;">{{TITRE_ACTU}}</div><div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#6b7a86;margin-top:6px;">{{DATE}} &nbsp;·&nbsp; {{REFERENCE}}</div><p style="font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#23303a;margin:14px 0 0;">{{CE_QUI_CHANGE}}</p><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;"><tr><td style="background:#faf6ef;border-left:3px solid #a8834c;border-radius:0 8px 8px 0;padding:12px 16px;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#23303a;"><b style="color:#8a6a38;">👉 Pour vos clients</b><br>{{POUR_VOS_CLIENTS}}</td></tr></table><table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:16px;"><tr><td bgcolor="#14344a" style="background:#14344a;border-radius:8px;"><a href="{{LIEN_OFFICIEL}}" style="display:inline-block;padding:10px 18px;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:bold;color:#ffffff;text-decoration:none;">Lire le texte officiel →</a></td></tr></table></td></tr></table></td></tr>
+
+### SEMAINE_CALME (mode HEBDO sans aucune actualité, à la place de EN_BREF et ACTUALITE)
+<tr><td style="padding:18px 26px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f7f9fb;border:1px solid #e3e9ee;border-radius:14px;"><tr><td align="center" style="padding:30px 26px;"><div style="font-size:34px;line-height:1;">☕</div><div style="font-family:Georgia,'Times New Roman',serif;font-size:21px;color:#14344a;margin-top:12px;">Rien à signaler</div><div style="font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#6b7a86;margin-top:8px;">{{TEXTE_CALME}}</div></td></tr></table></td></tr>
+
+### LIGNEE_A_JOUR (si aucun barème du site n’est touché)
+<tr><td style="padding:22px 26px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background:#e8f4f0;border-left:3px solid #0f6e56;border-radius:0 8px 8px 0;padding:13px 16px;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.55;color:#0f6e56;"><b>✓ Site Lignée à jour</b> — aucun barème du site n'est touché.</td></tr></table></td></tr>
+
+### LIGNEE_A_MODIFIER (sinon ; une LIGNE_MODIF par valeur à la place de {{LIGNES}})
+<tr><td style="padding:22px 26px 0;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="background:#fbeef0;border-left:3px solid #a8344a;border-radius:0 8px 8px 0;padding:13px 16px;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;color:#23303a;"><b style="color:#a8344a;">✎ À répercuter sur Lignée</b>{{LIGNES}}</td></tr></table></td></tr>
+
+### LIGNE_MODIF
+<br><code style="font-family:Menlo,Consolas,monospace;font-size:13px;">{{CONSTANTE}}</code> : {{ANCIENNE_VALEUR}} → <b>{{NOUVELLE_VALEUR}}</b> <span style="color:#6b7a86;">(à compter du {{DATE_EFFET}})</span>
+
+### SOURCES (toujours ; une LIGNE_SOURCE par source consultée)
+<tr><td style="padding:26px 26px 8px;"><div style="font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:bold;letter-spacing:1.5px;color:#6b7a86;">SOURCES CONSULTÉES</div><div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:1.8;color:#6b7a86;margin-top:6px;">{{LIGNES}}</div></td></tr>
+
+### LIGNE_SOURCE (✓ vert #0f6e56 si la source a répondu, ⚠ rouge #a8344a si elle était inaccessible)
+<span style="color:#0f6e56;">✓</span>&nbsp; {{NOM_SOURCE}}<br>
+
+### PIED (toujours)
+<tr><td bgcolor="#f2f6f9" style="background:#f2f6f9;padding:20px 26px 22px;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#6b7a86;border-top:1px solid #e3e9ee;">Veille rédigée automatiquement à partir des sources officielles — à vérifier avant tout usage auprès d'un client.<br>Veille interne · chaque matin à 7 h, récapitulatif le lundi ·<a href="https://favereaukevin-creator.github.io/lignee/" style="color:#14344a;">Lignée</a></td></tr>
+
+### FERMETURE (toujours)
+</table></td></tr></table></body></html>
+
