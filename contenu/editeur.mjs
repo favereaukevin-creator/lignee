@@ -9,6 +9,7 @@
 //   • Registre ORIAS en ligne, fiche 920478518 — le numéro y est bien INSCRIT
 //   • Courriel ANACOFI du 07/09/2026 — adhésion ANACOFI-COURTAGE, activité MIA
 //   • Mandat de médiation ANACOFI-COURTAGE — membre institutionnel de LMA
+//   • Kevin, le 28/09/2026 : micro-entrepreneur, non assujetti à la TVA
 //
 // Adresse, téléphone et courriel sont ceux que Kevin a déclarés PUBLICS sur le
 // registre de l'ORIAS : les reprendre ici n'expose rien de plus.
@@ -23,11 +24,16 @@ export const ARENSEIGNER = {
   courriel: 'favereaukevin@gmail.com',
   statut: 'RCS Montauban 920 478 518',
   orias: '26009613',
-  /** Numéro de TVA intracommunautaire, ou mention d'exonération : à confirmer par Kevin. */
-  tva: '<TVA : numéro intracommunautaire, ou franchise / exonération>',
-  associationMia: 'ANACOFI-COURTAGE, 92 rue d\'Amsterdam, 75009 Paris',
-  /** Association de rattachement pour l'activité bancaire (MIOBSP) : inconnue à ce jour. */
-  associationIobsp: '<ASSOCIATION POUR L\'ACTIVITÉ MIOBSP>',
+  // Micro-entrepreneur en franchise en base : mention exacte du BOFiP
+  // (BOI-TVA-DECLA-40-10-20). Les commissions d'intermédiation sont en outre
+  // exonérées par nature (CGI art. 261 C, 1° a et 2°). Si le chiffre d'affaires
+  // dépasse un jour le seuil de franchise, cette ligne devient fausse.
+  tva: 'TVA non applicable, article 293 B du CGI',
+  associationMia: "ANACOFI-COURTAGE, 92 rue d'Amsterdam, 75009 Paris",
+  // Association de rattachement pour l'activité MIOBSP. Vide = non affichée :
+  // l'immatriculation ORIAS suffit à l'obligation légale. À compléter si Kevin
+  // la précise.
+  associationIobsp: '',
   autorite: 'Autorité de contrôle prudentiel et de résolution (ACPR), 4 place de Budapest, CS 92459, 75436 Paris Cedex 09',
-  mediateur: 'La Médiation de l\'Assurance, TSA 50110, 75441 Paris Cedex 09 — www.mediation-assurance.org',
+  mediateur: "La Médiation de l'Assurance, TSA 50110, 75441 Paris Cedex 09 — www.mediation-assurance.org",
 }

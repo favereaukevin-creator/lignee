@@ -34,6 +34,10 @@ jobs:
         env:
           BASE_URL: ${{ vars.BASE_URL || '/lignee/' }}
           SITE_URL: ${{ vars.SITE_URL || 'https://favereaukevin-creator.github.io/lignee' }}
+          # « publique » ouvre le site : identité de l'éditeur, contact, indexation.
+          # Toute autre valeur, ou l'absence de variable, le garde en préversion.
+          # Se règle dans Settings → Secrets and variables → Actions → Variables.
+          DIFFUSION: ${{ vars.DIFFUSION || 'restreinte' }}
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

@@ -38,7 +38,7 @@ const editeur = () => `
           </li>
           <li>
             Mandataire d'intermédiaire en opérations de banque et en services de paiement
-            (MIOBSP), depuis le 17 juillet 2026 — ${ARENSEIGNER.associationIobsp}.
+            (MIOBSP), depuis le 17 juillet 2026${ARENSEIGNER.associationIobsp ? ` — adhérent de ${ARENSEIGNER.associationIobsp}` : ''}.
           </li>
         </ul>
         <p>
